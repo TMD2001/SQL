@@ -1,0 +1,24 @@
+For my first project I created a store database.
+
+CREATE TABLE store(id INTEGER PRIMARY KEY, name TEXT, color TEXT, size INTEGER, price INTEGER, quantity INTEGER);
+
+INSERT INTO store VALUES(1, "shirt", "purple", 6, 39, 4);
+INSERT INTO store VALUES(2, "skirt", "purple", 8, 49, 7);
+INSERT INTO store VALUES(3, "hat", "beige", 10, 19, 18);
+INSERT INTO store VALUES(4, "socks", "white", 7, 9, 20);
+INSERT INTO store VALUES(5, "socks", "black", 8, 9, 20);
+INSERT INTO store VALUES(6, "jeans", "blue", 6, 79, 8);
+INSERT INTO store VALUES(7, "pants", "purple", 10, 69, 4);
+INSERT INTO store VALUES(8, "bodysuit", "black", 12, 39, 5);
+INSERT INTO store VALUES(9, "sarong", "desert", 10, 20, 4);
+INSERT INTO store VALUES(10, "dress", "green", 6, 69, 6);
+INSERT INTO store VALUES(11, "sweatshirt", "white", 10, 29, 9);
+INSERT INTO store VALUES(12, "joggers", "white", 10, 29, 10);
+INSERT INTO store VALUES(13, "pajamas", "turqoise", 12, 39, 4);
+INSERT INTO store VALUES(14, "belt", "brown", 8, 29, 15);
+INSERT INTO store VALUES(15, "suit", "navy", 10, 129, 12);
+
+SELECT name, price, color 
+FROM store
+WHERE color = "purple"
+ORDER BY price;
