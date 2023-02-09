@@ -1,0 +1,74 @@
+--Manipulated Pokemon data from an aleady created table.
+
+
+SELECT name, MAX(HP) AS HP_Top_25
+FROM pokemon
+GROUP BY name
+HAVING MAX(HP)
+ORDER BY MAX(HP) desc
+LIMIT 25;
+
+
+SELECT name, MAX(Speed) AS Speed_Top_25
+FROM pokemon
+GROUP BY name
+HAVING MAX(Speed)
+ORDER BY MAX(Speed) desc
+LIMIT 25;
+
+SELECT name, MAX(attack) AS Attack_Top_25
+FROM pokemon
+GROUP BY name
+HAVING MAX(attack)
+ORDER BY MAX(attack) desc
+LIMIT 25;
+
+SELECT name, MAX(defense) AS Defense_Top_25
+FROM pokemon
+GROUP BY name
+HAVING MAX(defense)
+ORDER BY Max(defense) desc
+LIMIT 25;
+
+
+
+SELECT AVG(Speed) FROM pokemon;
+
+SELECT AVG(HP) FROM pokemon;
+
+SELECT AVG(attack) FROM pokemon;
+
+SELECT AVG(defense) FROM pokemon;
+
+
+SELECT Name, Type_1, Type_2, (AVG(Speed)) AS average_speed, (AVG(HP)) AS average_HP, (AVG(attack)) AS average_attack, (AVG(defense)) AS average_defense
+FROM pokemon
+GROUP BY name, Type_1, Type_2
+HAVING ROUND(AVG(Speed)) > 68
+AND ROUND(AVG(HP)) > 69 
+AND ROUND(AVG(attack)) > 79 
+AND ROUND(AVG(defense)) > 74 
+LIMIT 25
+;
+
+
+SELECT name, hp, attack, defense, speed
+FROM pokemon
+WHERE hp  >= 120
+AND attack >= 150
+AND defense >= 140
+AND speed >= 125;
+
+SELECT name, HP, attack, defense, speed,
+CASE 
+    WHEN hp >= 120
+    THEN "Top 25 HP ranked Pokemon"
+    WHEN attack >= 150
+    THEN "Top 25 attack ranked Pokemon"
+    WHEN defense >= 140
+    THEN "Top 25 defense ranked Pokemon"
+    WHEN speed >= 125
+    THEN "Top 25 speed ranked Pokemon"
+    ELSE "Pokemon not ranked in top 25 for hp, attack, defense, or speed"
+    END AS "Pokemon_ranking"
+    FROM pokemon;
