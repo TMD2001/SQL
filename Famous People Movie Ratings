@@ -1,0 +1,78 @@
+/*This project gives an example of using multiple columns and tables with joins to produce a distinct record.*/
+
+CREATE TABLE Actors
+(id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, age INTEGER, hometown TEXT); 
+
+INSERT INTO actors (first_name, last_name, age, hometown)
+VALUES ("Mary", "Jackson", 22, "New York City");
+INSERT INTO actors (first_name, last_name, age, hometown)
+VALUES ("Trey", "Thompson", 25, "Los Angeles");
+INSERT INTO actors (first_name, last_name, age, hometown)
+VALUES ("Jack", "Jones", 27, "Austin");
+INSERT INTO actors (first_name, last_name, age, hometown)
+VALUES ("Louie", "Grey", 22, "San Fransisco");
+
+CREATE TABLE Movies (actors_id INTEGER, movie_name TEXT);
+
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (1, "Creative"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (1, "Dependable"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (2, "Creative"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (2, "Dependable"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (3, "Creative"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (3, "Dependable"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (4, "Creative"); 
+INSERT INTO Movies(actors_id, movie_name)
+VALUES (4, "Dependable");
+
+CREATE TABLE Ratings (actors_id TEXT, movie_name TEXT, rating INTEGER);
+
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (1, "Creative", 3); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (1, "Creative", 4); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (1, "Dependable", 5); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (1, "Dependable", 3); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (2, "Creative", 3); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (2, "Creative", 4); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (2, "Dependable", 5); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (2, "Dependable", 4);
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (3, "Creative", 2); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (3, "Creative", 3); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (3, "Dependable", 5); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (3, "Dependable", 3); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (4, "Creative", 3); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (4, "Creative", 2); 
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (4, "Dependable", 4);
+INSERT INTO Ratings(actors_id, movie_name, rating)
+VALUES (4, "Dependable", 5);
+
+
+
+SELECT a.id, a.first_name, a.last_name, m.movie_name, r.rating
+FROM actors AS a
+LEFT JOIN movies AS m ON a.id=m.actors_id
+LEFT JOIN ratings AS r 
+ON (a.id=r.actors_id AND m.movie_name=r.movie_name);
+
+
+
