@@ -1,4 +1,4 @@
-For my first project I created a store database.
+--For my first project, I created a table for a store and inserted data descriptions for the items being sold.
 
 CREATE TABLE store(id INTEGER PRIMARY KEY, name TEXT, color TEXT, size INTEGER, price INTEGER, quantity INTEGER);
 
@@ -18,7 +18,54 @@ INSERT INTO store VALUES(13, "pajamas", "turqoise", 12, 39, 4);
 INSERT INTO store VALUES(14, "belt", "brown", 8, 29, 15);
 INSERT INTO store VALUES(15, "suit", "navy", 10, 129, 12);
 
-SELECT name, price, color 
+--The following queries display use of aggregate functions and use the commands SELECT, FROM, WHERE, GROUP BY, HAVING, and ORDER BY. 
+
+--What items are available in purple? List price from lowest to highest. 
+
+SELECT name, price
 FROM store
 WHERE color = "purple"
-ORDER BY price;
+ORDER BY price
+;
+
+--What is the inventory for white items? Order the inventory with the highest quantity first.
+
+SELECT name, quantity
+FROM store
+WHERE color = 'white'
+ORDER BY quantity desc
+;
+
+--How much inventory of each item is stocked in the store?
+
+SELECT name, SUM(quantity) AS 'Quantity In Stock'
+FROM store
+GROUP BY name
+;
+
+--How much total inventory is in the store?
+
+SELECT SUM(price) AS 'Priced Inventory Total'
+FROM store
+;
+
+--What is the average price of all items?
+
+SELECT AVG(price) AS 'Average Cost'
+FROM store
+;
+
+--Which item is the least expensive and what colors are available in this item?
+
+SELECT name, color, price 
+FROM store 
+WHERE price = (SELECT MIN(price) FROM store)
+;
+
+--Select all items and their prices that cost more than $50.
+
+SELECT name, price
+FROM store
+GROUP BY name
+HAVING MIN(price) > 50
+;
