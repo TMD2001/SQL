@@ -1,63 +1,118 @@
---Manipulated Pokemon data from an aleady created table.
+--This project queries data about Pokemon statistics and focuses on filtering data. It also includes a CASE statement to group data values.
+
+--The following is a sample of the code used to construct the queries:
+
+CREATE TABLE pokemon(
+  Number     INTEGER,
+  Name       TEXT PRIMARY KEY,
+  Type_1     TEXT,
+  Type_2     TEXT,
+  Total      INTEGER,
+  HP         INTEGER,
+  Attack     INTEGER,
+  Defense    INTEGER,
+  Sp_Atk     INTEGER,
+  Sp_Def     INTEGER,
+  Speed      INTEGER,
+  Generation INTEGER,
+  Legendary  TEXT
+);
+INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (1,'Bulbasaur','Grass','Poison',318,45,49,49,65,65,45,1,'False');
+INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (2,'Ivysaur','Grass','Poison',405,60,62,63,80,80,60,1,'False');
 
 
-SELECT name, MAX(HP) AS HP_Top_25
-FROM pokemon
-GROUP BY name
-HAVING MAX(HP)
-ORDER BY MAX(HP) desc
-LIMIT 25;
+--Rank the Top 25 Legendary Pokemon starting with the highest total stats.
 
+SELECT name AS Legendary, total 
+FROM pokemon 
+WHERE Legendary = 'True'
+ORDER BY total desc
+LIMIT 25
+;
+
+--Use the lowest total score from the previous code (670) to determine the most common Type 1 attack amongst the Top 25 Legendary Pokemon.
+
+SELECT type_1 AS 'Most Common Legendary Type 1 Attack', type_2 AS 'Most Common Legendary Type 2 Attack'
+FROM pokemon 
+WHERE Legendary = 'True' 
+AND Total >= 670
+GROUP BY type_1, type_2 
+ORDER BY COUNT(*) DESC 
+LIMIT 1
+;
+
+--List the non-legendary Pokemon with type 1 or type 2 psychic type between attack level 50 and 100. 
+
+SELECT name, attack
+FROM pokemon 
+WHERE Legendary = 'False' 
+AND (type_1 = 'Psychic'
+OR type_2 = 'Psychic')
+AND attack 
+BETWEEN '50' and '100'
+ORDER BY attack DESC
+;
+
+--List the Top 25 Speed ranked Pokemon.
 
 SELECT name, MAX(Speed) AS Speed_Top_25
 FROM pokemon
 GROUP BY name
 HAVING MAX(Speed)
 ORDER BY MAX(Speed) desc
-LIMIT 25;
-
-SELECT name, MAX(attack) AS Attack_Top_25
-FROM pokemon
-GROUP BY name
-HAVING MAX(attack)
-ORDER BY MAX(attack) desc
-LIMIT 25;
-
-SELECT name, MAX(defense) AS Defense_Top_25
-FROM pokemon
-GROUP BY name
-HAVING MAX(defense)
-ORDER BY Max(defense) desc
-LIMIT 25;
-
-
-
-SELECT AVG(Speed) FROM pokemon;
-
-SELECT AVG(HP) FROM pokemon;
-
-SELECT AVG(attack) FROM pokemon;
-
-SELECT AVG(defense) FROM pokemon;
-
-
-SELECT Name, Type_1, Type_2, (AVG(Speed)) AS average_speed, (AVG(HP)) AS average_HP, (AVG(attack)) AS average_attack, (AVG(defense)) AS average_defense
-FROM pokemon
-GROUP BY name, Type_1, Type_2
-HAVING ROUND(AVG(Speed)) > 68
-AND ROUND(AVG(HP)) > 69 
-AND ROUND(AVG(attack)) > 79 
-AND ROUND(AVG(defense)) > 74 
 LIMIT 25
 ;
 
+--Select the average speed, HP, attack, and defense of all Pokemon.
 
-SELECT name, hp, attack, defense, speed
+SELECT ROUND(AVG(Speed)) AS avgSpeed, ROUND(AVG(HP)) AS avgHP, ROUND(AVG(attack)) AS avgAttack, ROUND(AVG(defense)) AS avgDefense
+FROM pokemon;
+
+--List the name, type 1 attack, type 2 attack, speed, HP, attack, and defense for all fire type Pokemon having greater than average speed, HP, attack, and defense.
+
+SELECT Name, Type_1, Type_2, (AVG(Speed)) AS average_speed, (AVG(HP)) AS average_HP, (AVG(attack)) AS average_attack, (AVG(defense)) AS average_defense
 FROM pokemon
-WHERE hp  >= 120
-AND attack >= 150
-AND defense >= 140
-AND speed >= 125;
+WHERE Type_1 = 'fire' or Type_2 = 'fire'
+GROUP BY name
+HAVING ROUND(AVG(Speed)) > 68
+AND ROUND(AVG(HP)) > 69 
+AND ROUND(AVG(attack)) > 79 
+AND ROUND(AVG(defense)) > 74
+;
+
+--Select the top 25 HP statistics.
+
+SELECT HP
+FROM pokemon
+ORDER BY HP desc
+LIMIT 25
+;
+
+--Select the top 25 attack statistics.
+
+SELECT attack
+FROM pokemon
+ORDER BY attack desc
+LIMIT 25
+;
+
+--Select the top 25 defense statistics.
+
+SELECT defense
+FROM pokemon
+ORDER BY defense desc
+LIMIT 25
+;
+
+--Select the top 25 speed statistics.
+
+SELECT speed
+FROM pokemon
+ORDER BY speed desc
+LIMIT 25
+;
+
+--Use the previous four results to construct a CASE statement. 
 
 SELECT name, HP, attack, defense, speed,
 CASE 
@@ -70,5 +125,8 @@ CASE
     WHEN speed >= 125
     THEN "Top 25 speed ranked Pokemon"
     ELSE "Pokemon not ranked in top 25 for hp, attack, defense, or speed"
-    END AS "Pokemon_ranking"
-    FROM pokemon;
+ END AS "Pokemon_ranking"
+ FROM pokemon
+ ;
+
+
