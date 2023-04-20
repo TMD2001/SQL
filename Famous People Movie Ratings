@@ -1,78 +1,177 @@
-/*This project gives an example of using multiple columns and tables with joins to produce a distinct record.*/
+
+--For this project, I created a table for actors and related tables, joining these relations to produce distinct records that were used to answer queries.
 
 CREATE TABLE Actors
 (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT, age INTEGER, hometown TEXT); 
+INSERT INTO actors (id, first_name, last_name, age, hometown)
+VALUES (1, "Mary", "Jackson", 22, "New York City");
+INSERT INTO actors (id, first_name, last_name, age, hometown)
+VALUES (2, "Trey", "Thompson", 25, "Los Angeles");
+INSERT INTO actors (id, first_name, last_name, age, hometown)
+VALUES (3, "Jack", "Jones", 27, "Austin");
+INSERT INTO actors (id, first_name, last_name, age, hometown)
+VALUES (4, "Louie", "Grey", 22, "San Fransisco");
 
-INSERT INTO actors (first_name, last_name, age, hometown)
-VALUES ("Mary", "Jackson", 22, "New York City");
-INSERT INTO actors (first_name, last_name, age, hometown)
-VALUES ("Trey", "Thompson", 25, "Los Angeles");
-INSERT INTO actors (first_name, last_name, age, hometown)
-VALUES ("Jack", "Jones", 27, "Austin");
-INSERT INTO actors (first_name, last_name, age, hometown)
-VALUES ("Louie", "Grey", 22, "San Fransisco");
+CREATE TABLE Movies (movie_id INTEGER, actor_id INTEGER, movie_name TEXT, genre TEXT);
 
-CREATE TABLE Movies (actors_id INTEGER, movie_name TEXT);
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (101, 1, "Creative", "Thriller"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (102, 1, "Dependable", "Action"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (103, 1, "Leader", "Comedy");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (105, 1, "Sunday", "Horror");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (101, 2, "Creative", "Thriller"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (102, 2, "Dependable", "Action"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (104, 2, "Winning", "Romance");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (106, 2, "Shug", "Suspense");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (101, 3, "Creative", "Thriller"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (103, 3, "Leader", "Comedy"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (102, 3, "Dependable", "Action"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (106, 3, "Shug", "Suspense");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (101, 4, "Creative", "Thriller"); 
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (102, 4, "Dependable", "Action");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (104, 4, "Winning", "Romance");
+INSERT INTO Movies(movie_id, actor_id, movie_name, genre)
+VALUES (105, 4, "Sunday", "Horror");
 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (1, "Creative"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (1, "Dependable"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (2, "Creative"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (2, "Dependable"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (3, "Creative"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (3, "Dependable"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (4, "Creative"); 
-INSERT INTO Movies(actors_id, movie_name)
-VALUES (4, "Dependable");
+CREATE TABLE Ratings (rating INTEGER, movie_id INTEGER, actor_id INTEGER);
 
-CREATE TABLE Ratings (actors_id TEXT, movie_name TEXT, rating INTEGER);
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (3, 103, 1); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (4, 101, 1); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (5, "102", 1); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (3, "102", 1); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (3, "101", 2); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (4, "104", 2); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (5, "102", 2); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (4, "102", 2);
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (2, "101", 3); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (3, "101", 3); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (5, "102", 3); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (3, "106", 3); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (3, "101", 4); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (2, "101", 4); 
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (4, "105", 4);
+INSERT INTO Ratings(rating, movie_id, actor_id)
+VALUES (5, "102", 4);
 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (1, "Creative", 3); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (1, "Creative", 4); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (1, "Dependable", 5); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (1, "Dependable", 3); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (2, "Creative", 3); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (2, "Creative", 4); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (2, "Dependable", 5); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (2, "Dependable", 4);
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (3, "Creative", 2); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (3, "Creative", 3); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (3, "Dependable", 5); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (3, "Dependable", 3); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (4, "Creative", 3); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (4, "Creative", 2); 
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (4, "Dependable", 4);
-INSERT INTO Ratings(actors_id, movie_name, rating)
-VALUES (4, "Dependable", 5);
+CREATE TABLE Oscars (oscar_id INTEGER, category TEXT, actor_id INTEGER, movie_id INTEGER);
 
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (1, "Best Actor", 1, 101);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (2, "Best Supporting Actor", 1, 105);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (3, "Best Actor", 2, 104);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (4, "Best Supporting Actor", 2, 101);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (5, "Best Actor", 3, 106);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (6, "Best Supporting Actor", 3, 102);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (7, "Best Actor", 4, 105);
+INSERT INTO Oscars (oscar_id, category, actor_id, movie_id)
+VALUES (8, "Best Supporting Actor", 4, 104);
 
+--How many actors were in movies in the Romance genre?
 
-SELECT a.id, a.first_name, a.last_name, m.movie_name, r.rating
+SELECT COUNT(distinct a.id) AS 'Romance Actor Count'
+FROM actors a 
+JOIN movies m
+ON a.id = m.actor_id
+WHERE m.genre = 'Romance'
+;
+
+--Which movie in the Comedy category had the lowest rating and what is that rating?
+
+SELECT m.movie_name AS Movie, MIN(r.rating) AS 'Lowest Rating'
+FROM  movies m
+JOIN ratings r
+ON r.movie_id = m.movie_id
+JOIN oscars o
+ON r.actor_id = o.actor_id
+WHERE m.genre = 'Comedy'
+GROUP BY m.genre
+;
+
+--How many Oscars did each actor win?
+
+SELECT a.first_name || ' ' || a.last_name AS Name, COUNT(o.oscar_id) AS 'Oscar Wins'
+FROM actors a
+JOIN movies m
+ON a.id = m.actor_id
+JOIN oscars o 
+ON o.movie_id = m.movie_id
+AND o.actor_id = a.id
+GROUP BY a.id
+;
+
+--List the actors and their movies with 2 star ratings. 
+
+SELECT a.first_name || ' ' || a.last_name AS Name, m.movie_name AS Movie 
+FROM actors a
+JOIN movies m
+ON a.id = m.actor_id
+AND m.movie_id = r.movie_id
+JOIN ratings r
+ON r.actor_id = m.actor_id
+WHERE r.rating = 2
+;
+
+--List the actors and their Oscar count in order of most Oscar winning movies to least.
+
+SELECT DISTINCT a.first_name || ' ' || a.last_name AS Name, COUNT(*) AS 'Oscar Wins Order'
+FROM actors a
+JOIN movies m
+ON a.id = m.actor_id
+JOIN ratings r
+ON r.actor_id = m.actor_id
+AND r.movie_id = m.movie_id
+JOIN oscars o
+ON o.actor_id = r.actor_id
+AND o.movie_id = r.movie_id
+GROUP BY a.id
+ORDER BY COUNT(*) DESC
+;
+
+--List each actor's movies and their ratings.
+
+SELECT a.first_name || ' ' || a.last_name AS Name, m.movie_name AS Movie, r.rating AS 'Movie Rating'
 FROM actors AS a
-LEFT JOIN movies AS m ON a.id=m.actors_id
-LEFT JOIN ratings AS r 
-ON (a.id=r.actors_id AND m.movie_name=r.movie_name);
+JOIN movies AS m 
+ON a.id=m.actor_id
+JOIN ratings AS r 
+ON a.id=r.actor_id 
+AND m.movie_id=r.movie_id
+;
 
 
 
