@@ -1,0 +1,52 @@
+--This project creates and modifies data using CREATE, INSERT, UPDATE, and DELETE.
+
+--CREATE
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY,
+    rank INTEGER,
+    name TEXT,
+    level TEXT
+    );
+    
+--INSERT    
+
+INSERT INTO users (rank, name, level) VALUES (1, "Joe", "Bronze");
+INSERT INTO users (rank, name, level) VALUES (7, "Sally", "Gold");
+INSERT INTO users (rank, name, level) VALUES (4, "Steve", "Silver");
+INSERT INTO users (rank, name, level) VALUES (9, "Ruby", "Gold");
+
+--Use SELECT to verify the data was correctly inserted.
+
+SELECT * FROM users;    
+    
+--UPDATE
+    
+UPDATE users SET level = "Silver" 
+WHERE id = 1;
+UPDATE users SET rank = "2"
+WHERE id = 1;
+UPDATE users SET level = "Platinum" 
+WHERE id = 2;
+UPDATE users SET rank = "8"
+WHERE id = 2;
+UPDATE users SET level = "Gold" 
+WHERE id = 3;
+UPDATE users SET rank = "5"
+WHERE id = 3;
+UPDATE users SET level = "Platinum" 
+WHERE id = 4;
+UPDATE users SET rank = "10"
+WHERE id = 4;
+
+--Use SELECT to verify the data was correctly updated. 
+
+SELECT * FROM users;
+
+--DELETE
+
+DELETE FROM users WHERE rank <= 5;
+
+--Use SELECT to verify the data was correctly deleted.
+
+SELECT * FROM users;
